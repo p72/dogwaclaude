@@ -9,21 +9,62 @@ Claudeの画像認識を使って、犬が動いたときに通知してくれ�
 - 🔔 動きを検知したらアラート音で通知
 - 📱 スマホ・タブレット対応
 
-## セットアップ
+## デプロイ方法
 
-### 1. 必要なもの
+このアプリは**バックエンドサーバーが必要**なため、GitHub Pagesでは動作しません。以下のいずれかの方法でデプロイしてください：
+
+### 方法1: Vercel (推奨・簡単)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/p72/dogwaclaude)
+
+1. 上のボタンをクリック
+2. GitHubアカウントでログイン
+3. リポジトリをインポート
+4. デプロイ完了！
+
+### 方法2: Cloudflare Workers + GitHub Pages (無料枠が大きい)
+
+**Cloudflare Workersのセットアップ:**
+
+```bash
+# Wranglerをインストール
+npm install -g wrangler
+
+# Cloudflareにログイン
+wrangler login
+
+# Workerをデプロイ
+wrangler publish
+```
+
+デプロイ後、Worker URLが表示されます（例: `https://dogwaclaude-api.your-name.workers.dev`）
+
+**GitHub Pagesのセットアップ:**
+
+1. `index.html` の336行目を以下のように変更:
+   ```javascript
+   const response = await fetch('https://your-worker.workers.dev', {
+   ```
+
+2. GitHubリポジトリの Settings > Pages で GitHub Pages を有効化
+
+3. `https://your-username.github.io/dogwaclaude` でアクセス可能に！
+
+### 方法3: ローカルで実行
+
+#### 必要なもの
 
 - Node.js (v14以上)
 - Anthropic APIキー ([こちら](https://console.anthropic.com/)から取得)
 
-### 2. インストール
+#### インストール
 
 ```bash
 # 依存パッケージをインストール
 npm install
 ```
 
-### 3. サーバーの起動
+#### サーバーの起動
 
 ```bash
 # サーバーを起動
